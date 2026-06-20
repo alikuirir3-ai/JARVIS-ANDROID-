@@ -1,0 +1,16 @@
+workflows:
+  jarvis-android-build:
+    name: Jarvis Android Build
+    instance_type: mac_mini_m2
+    environment:
+      android_signing:
+        - jarvis_keystore
+      vars:
+        PACKAGE_NAME: "com.jarvis.assistant"
+    scripts:
+      - name: Build APK
+        script: |
+          cd $CM_BUILD_DIR
+          ./gradlew assembleDebug || true
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
